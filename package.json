@@ -4,9 +4,12 @@
   "description": "Making chat room with socket.io",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"    
   },
   "author": "Noat",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",    
+    "socket.io": "^2.2.0"
+  }
 }
