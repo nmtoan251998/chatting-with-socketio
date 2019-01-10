@@ -5,13 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chatting with me</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">    
 </head>
-<body>
-    <h1>Chatting with me buddies</h1>
+<body>    
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center mb-5">
+            <h1>Chatting with me buddies</h1>    
+        </div>              
+        <div class="row"> 
+            <div class="col-md-8">
+                <ul id="messages"></ul>
+                <form actiopn="#" id="chat__form">
+                    <label></label>
+                    <div class="form-group">
+                        <label for="chat__input">Enter messages:</label>
+                        <textarea type="text" class="form-control" id="chat__input" placeholder="Let chat"></textarea>                   
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="chat__btn">Send</button>
+                </form>        
+            </div>            
+        </div>          
+    </div>
 
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
+    <script>        
+        const chatForm = document.querySelector("#chat__form");
+        const chatBtn = document.querySelector("#chat__btn");
+        const chatInput = document.querySelector("#chat__input");
+        const messages = document.querySelector("#messages");
+        const users = document.querySelector("#users");
+        
+        const socket = io();        
+
+        chatBtn.addEventListener("click", e => {
+            e.preventDefault(); 
+            socket.emit('chat message', chatInput.value);
+            chatInput.value = '';
+            return false;
+        });
+
+        socket.on('chat message', msg => {            
+            let content = document.createElement("div");
+            content.classList.add("alert", "alert-dark");
+            content.innerHTML = msg;
+                                    
+            messages.appendChild(content);            
+        });
+
+        socket.on('online users', data => {
+
+        })
+
     </script>
 </body>
 </html>
